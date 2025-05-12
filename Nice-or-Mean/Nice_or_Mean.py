@@ -61,7 +61,7 @@ def win(nice,mean,name):
     # Opens image
     from PIL import Image
 
-    img = Image.open(r"Nice.png")
+    img = Image.open("Nice.png")
     img.show()
     
     # call again function and pass in our variables
@@ -74,7 +74,7 @@ def lose(nice,mean,name):
     # Opens image
     from PIL import Image
 
-    img = Image.open(r"Mean.png")
+    img = Image.open("Mean.png")
     img.show()
 
     # call again function and pass in our variables
