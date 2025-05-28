@@ -21,7 +21,7 @@ class ParentWindow(Frame):
         self.sourceDir_btn.grid(row=0, column=0, padx=(20,10), pady=(30,0))
 
         # Creates entry for source file selection
-        self.source_dir = Entry(self.master, width=75)
+        self.source_dir = Entry(self.master, width=80)
         # Positions entry in GUI using tkinter grid() padx and pady are
         # the same as the button to ensure they will line up
         self.source_dir.grid(row=0, column=1, padx=(20,10), pady=(30,0))
@@ -33,7 +33,7 @@ class ParentWindow(Frame):
         self.destDir_btn.grid(row=1, column=0, padx=(20,10), pady=(15,0))
 
         # Creates entry for destination directory selection
-        self.dest_dir = Entry(self.master, width=75)
+        self.dest_dir = Entry(self.master, width=80)
         # Positions entry in GUI using tkinter grid()
         # padx and pady are the same as the button to ensure they line up
         self.dest_dir.grid(row=1, column=1, padx=(20,10), pady=(15,0))
@@ -41,12 +41,12 @@ class ParentWindow(Frame):
         # Creates button to transfer files
         self.transfer_btn = Button(text="Transfer Files", width=20, command=self.transferFiles)
         # Positions transfer files button
-        self.transfer_btn.grid(row=2, column=1, padx=(200,0), pady=(0,15))
+        self.transfer_btn.grid(row=2, column=1, padx=(0,20), pady=(15,15))
 
         # Creates an Exit button
         self.exit_btn = Button(text="Exit", width=20, command=self.exit_program)
         # Positions the Exit button
-        self.exit_btn.grid(row=2, column=2, padx=(10,40), pady=(0,15))
+        self.exit_btn.grid(row=2, column=1, padx=(20,10), pady=(15,15), sticky='e')
 
         # Label to show source directory last modified time
         self.source_time_label = tk.Label(self.master, text="", fg="red")
@@ -56,8 +56,12 @@ class ParentWindow(Frame):
         self.dest_time_label = tk.Label(self.master, text="", fg="red")
         self.dest_time_label.grid(row=1, column=2, padx=(20,10), pady=(15,0))
 
+        # Text widget to display transfer status messages
+        self.msg_box = tk.Text(self.master, height=2, width=83)
+        self.msg_box.grid(row=3, column=0, columnspan=3, padx=(20,0), pady=(0,30), sticky='w')
+        # Start as read-only
+        self.msg_box.config(state=tk.DISABLED)  
     
-
 
 
             
@@ -73,25 +77,22 @@ class ParentWindow(Frame):
         file_names = [os.path.basename(f) for f in self.selected_files]
         self.source_dir.insert(0, "; ".join(file_names))
 
-        # Check if the user has selected at least one file
-        if self.selected_files:
-            # Get the directory of the first selected file
-            source_dir = os.path.dirname(self.selected_files[0])
-            
-            # Check if the directory exists
-            if os.path.exists(source_dir):
-                # Get the last modified timestamp of the directory (in seconds since epoch)
-                mod_time = os.path.getmtime(source_dir)
-                
-                # Convert the timestamp into a readable datetime format
-                formatted_time = datetime.datetime.fromtimestamp(mod_time).strftime('%Y-%m-%d %H:%M:%S')
-                
-                # Update the label on the GUI to display the last modified time
-                self.source_time_label.config(text=f"Last modified: {formatted_time}")
-            else:
-                # If the directory doesn't exist, show an error message on the label
-                self.source_time_label.config(text="Directory not found.")
+        now = datetime.datetime.now().timestamp()
+        # Clear previous messages and prepare to display new ones
+        self.msg_box.config(state=tk.NORMAL)
+        self.msg_box.delete('1.0', tk.END)
 
+        # For each selected file, check if modified in last 24 hours and display last modified time
+        for file_path in self.selected_files:
+            file_mtime = os.path.getmtime(file_path)
+            time_diff = now - file_mtime
+            if time_diff < 24 * 60 * 60:
+                mod_time_str = datetime.datetime.fromtimestamp(file_mtime).strftime('%Y-%m-%d %H:%M:%S')
+                self.msg_box.insert(tk.END, f"{os.path.basename(file_path)} - Last modified: {mod_time_str}\n")
+
+        self.msg_box.config(state=tk.DISABLED)
+
+        
         
     # Creates function to select destination directory
     def destDir(self):
@@ -101,21 +102,7 @@ class ParentWindow(Frame):
         # Inserts the selected path into the entry
         self.dest_dir.insert(0, selectDestDir)
 
-        # Get and display last modified time
-        if os.path.exists(selectDestDir):
-            # Get the last modified timestamp of the selected destination directory (in seconds since epoch)
-            mod_time = os.path.getmtime(selectDestDir)
-            
-            # Convert the timestamp into a readable datetime format
-            formatted_time = datetime.datetime.fromtimestamp(mod_time).strftime('%Y-%m-%d %H:%M:%S')
-            
-            # Update the label on the GUI to display the last modified time
-            self.dest_time_label.config(text=f"Last modified: {formatted_time}")
-        else:
-            # If the directory doesn't exist, show an error message on the label
-            self.dest_time_label.config(text="Directory not found.")
-
-
+        
 
     # Creates function to exit program
     def exit_program(self):
@@ -123,18 +110,31 @@ class ParentWindow(Frame):
         # tells python to terminate root.mainloop and all widgets inside the GUI window
         root.destroy()
 
-    # Creates function to transfer files from one directory to another
-    def transferFiles(self):
-        # Gets destination directory
-        destination = self.dest_dir.get()
-        # Runs through each selected file
-        for file_path in self.selected_files:
-            # Gets the file name from the full path
-            filename = os.path.basename(file_path)
-            # Moves each file from the source to the destination
-            shutil.move(file_path, os.path.join(destination, filename))
-            print(filename + ' was successfully transferred.')
 
+    def transferFiles(self):
+        destination = self.dest_dir.get()
+        now = datetime.datetime.now().timestamp()
+
+        self.msg_box.config(state=tk.NORMAL)
+        self.msg_box.delete('1.0', tk.END)
+
+        for file_path in self.selected_files:
+            file_mtime = os.path.getmtime(file_path)
+            time_diff = now - file_mtime
+
+            if time_diff < 24 * 60 * 60:
+                filename = os.path.basename(file_path)
+                # Format last modified time nicely
+                mod_time_str = datetime.datetime.fromtimestamp(file_mtime).strftime('%Y-%m-%d %H:%M:%S')
+                
+                shutil.move(file_path, os.path.join(destination, filename))
+                self.msg_box.insert(tk.END, f"{filename} was successfully transferred. Last modified: {mod_time_str}\n")
+
+        self.msg_box.config(state=tk.DISABLED)
+
+
+
+                
 # Main application launcher
 if __name__ == "__main__":
     root = tk.Tk()
