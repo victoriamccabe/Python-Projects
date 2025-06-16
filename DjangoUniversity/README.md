@@ -1,6 +1,7 @@
-# DjangoUniversity - campusApp Assignment
+# DjangoUniversity - Assignment
 
-This assignment involves creating a new Django app called **campusApp** within the existing DjangoUniversity project to practice app creation, modeling, and admin registration.
+This assignment involves creating the **DjangoUniversity** project and a new app called **campusApp** within it to practice Django project and app setup, modeling, and admin registration.
+
 
 ## Steps Completed
 
