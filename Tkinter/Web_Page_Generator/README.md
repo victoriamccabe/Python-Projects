@@ -4,17 +4,17 @@ This is a simple GUI application built with Python and Tkinter that generates an
 
 ## Features
 
-- Enter custom text into a multi-line input box
-- Generate a default HTML page with predefined content
-- Generate a custom HTML page with user input
-- Clear the text input field
-- Automatically opens the generated HTML page in the default browser
+- Enter custom text into a multi-line input box  
+- Generate a default HTML page with predefined content  
+- Generate a custom HTML page with user input  
+- Clear the text input field  
+- Automatically opens the generated HTML page in the default browser  
 
 ## How to Run
 
-1. Make sure you have Python 3 installed on your system.
-2. Save the script to a `.py` file (e.g., `web_page_generator.py`).
+1. Make sure you have Python 3 installed on your system.  
+2. Save the script to a '.py' file (e.g., 'web_page_generator.py').  
 3. Run the script using:
 
-   ```bash
-   python web_page_generator.py
+   'bash  
+   python web_page_generator.py'

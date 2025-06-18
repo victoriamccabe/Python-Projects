@@ -9,15 +9,15 @@ This is a text-based Python game where the player interacts with strangers and c
 * **User Interaction**: The player inputs their name (if new) and chooses to be "nice" or "mean."
 * **Multiple Endings**: Winning or losing depends on the player's accumulated "nice" or "mean" actions.
 * **Replay Option**: After the game ends, the player can choose to play again.
-* **Visual Feedback**: Displays images ("Nice.png" or "Mean.png") depending on the outcome.
+* **Visual Feedback**: Displays images ('Nice.png' or 'Mean.png') depending on the outcome.
 
 ## Functions:
 
 * **start()**: Initializes the game, either welcoming the player or thanking them for returning.
-* **describe\_game()**: Asks for the player’s name if new or thanks them if returning.
-* **nice\_mean()**: Prompts the player to choose between being nice or mean, and updates their score.
-* **show\_score()**: Displays the current score.
-* **score()**: Checks if the game is over based on scores, and calls `win()`, `lose()`, or continues.
+* **describe_game()**: Asks for the player’s name if new or thanks them if returning.
+* **nice_mean()**: Prompts the player to choose between being nice or mean, and updates their score.
+* **show_score()**: Displays the current score.
+* **score()**: Checks if the game is over based on scores, and calls 'win()', 'lose()', or continues.
 * **win()**: Displays a winning message and image.
 * **lose()**: Displays a losing message and image.
 * **again()**: Asks if the player wants to play again.
@@ -33,9 +33,9 @@ This is a text-based Python game where the player interacts with strangers and c
 ## Prerequisites:
 
 * Python 3.x
-* `Pillow` library (for images): `pip install Pillow`
+* 'Pillow' library (for images): 'pip install Pillow'
 
 ## Files:
 
-* `Nice.png` – Image shown when the player wins.
-* `Mean.png` – Image shown when the player loses.
+* 'Nice.png' – Image shown when the player wins.
+* 'Mean.png' – Image shown when the player loses.

@@ -11,9 +11,9 @@ This Python application displays the current time and open/closed status of bran
 ## Requirements
 
 - Python 3
-- `tkinter` (included in standard Python)
-- A separate module called `Time_func.py` with required functions.
+- 'tkinter' (included in standard Python)
+- A separate module called 'Time_func.py' with required functions.
 
 ## How to Run
 
-Make sure `Time_func.py` is in the same directory as the main script.
+Make sure 'Time_func.py' is in the same directory as the main script.
