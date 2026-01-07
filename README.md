@@ -1,6 +1,6 @@
 # Python Projects Repository
 
-This repo showcases the projects and exercises I’ve completed as part of a Python programming course. It includes Python projects developed to build foundational and intermediate skills in programming, GUI development, and web application design. The course covers a range of Python technologies from basic scripting and data handling to Tkinter-based GUIs, Django web applications, and core Python functionality.
+This repo includes Python projects developed to build foundational and intermediate skills in programming, GUI development, and web application design. The course covers a range of Python technologies from basic scripting and data handling to Tkinter-based GUIs, Django web applications, and core Python functionality.
 
 ## Projects Overview
 

@@ -1,7 +1,7 @@
 # Web Page Generator (Tkinter)
 
-This is a simple GUI application built with Python and Tkinter that generates an HTML web page from user input. It allows users to either insert custom text or generate a default message into a basic HTML structure, which is then opened in a web browser.
-
+This is a simple GUI applphoneication built with Python and Tkinter that generates an HTML web page from user input. It allows users to either insert custom text or generate a default message into a basic HTML structure, which is then opened in a web browser.
+![Web_Page_Generator.gif](content/Web_Page_Generator.gif)
 ## Features
 
 - Enter custom text into a multi-line input box  

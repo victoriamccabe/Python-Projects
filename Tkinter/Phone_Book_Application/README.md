@@ -1,6 +1,6 @@
 # Tkinter Phonebook Demo
 A simple phonebook GUI app built with Python 3.5.1 and Tkinter to demonstrate OOP, modular programming, and GUI design.
-
+![Phone_Book_Application.gif](content/Phone_Book_Application.gif)
 ## Features
 - Clean Tkinter interface
 
